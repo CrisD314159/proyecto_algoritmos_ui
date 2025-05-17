@@ -9,7 +9,7 @@ const fetcher = async () => {
 }
 
 export default function FilteringPage() {
-  const { data, error, isLoading } = useSWR('abstracts', fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading } = useSWR('filtering', fetcher, { revalidateOnFocus: false })
 
   if (isLoading) {
     return (
@@ -36,7 +36,7 @@ export default function FilteringPage() {
 
         <p className="text-center text-gray-400">Resumen de artículos, autores, journals y más</p>
 
-        {data &&
+        {data ?
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Card title="Cantidad de artículos">{data.articles}</Card>
           <Card title="Cantidad de journals">{data.journals}</Card>
@@ -44,6 +44,10 @@ export default function FilteringPage() {
           <Card title="Cantidad de autores">{data.authors}</Card>
           <Card title="Artículos repetidos">{data.reapeated}</Card>
         </div> 
+        :
+      <div className="flex justify-center items-center h-screen">
+        <p className=" text-lg">Cargando resultados...</p>
+      </div>
         }
       </div>
     </main>

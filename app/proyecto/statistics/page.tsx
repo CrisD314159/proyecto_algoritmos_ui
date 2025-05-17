@@ -10,7 +10,7 @@ const fetcher = async () => {
 }
 
 export default function StatisticsPage() {
-  const { data, error, isLoading } = useSWR('abstracts', fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading } = useSWR('statistics', fetcher, { revalidateOnFocus: false })
 
   if (isLoading) {
     return (
@@ -36,7 +36,7 @@ export default function StatisticsPage() {
           Estadísticas de los articulos recopilados- Gráficas de barras
         </h1>
 
-      {data &&
+      {data ?
       <div className="w-full h-full">
         <section className="shadow-md rounded-2xl p-6 space-y-4">
           <h2 className="text-xl font-semibold text-center">Gráfica de los 15 autores con más apariciones</h2>
@@ -90,6 +90,10 @@ export default function StatisticsPage() {
           </div>
         </section>
 
+      </div>
+      :
+      <div className="flex justify-center items-center h-screen">
+        <p className=" text-lg">Cargando resultados...</p>
       </div>
       
       

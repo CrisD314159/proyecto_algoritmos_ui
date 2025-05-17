@@ -10,7 +10,7 @@ const fetcher = async () => {
 }
 
 export default function AlgorithmsPage() {
-  const { data, error, isLoading } = useSWR('abstracts', fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading } = useSWR('algorithms', fetcher, { revalidateOnFocus: false })
 
   if (isLoading) {
     return (
@@ -31,7 +31,7 @@ export default function AlgorithmsPage() {
 
   return (
     <main className="min-h-screenpy-10 px-4 md:px-10">
-      {data &&
+      {data ?
       <div className="max-w-5xl mx-auto space-y-10">
         <h1 className="text-3xl font-bold text-center">
           Ejecución de algoritmos de ordenamiento - Gráficas de barras
@@ -88,6 +88,11 @@ export default function AlgorithmsPage() {
             />
           </div>
         </section>
+      </div>
+      :
+
+      <div className="flex justify-center items-center h-screen">
+        <p className=" text-lg">Cargando resultados...</p>
       </div>
       }
     </main>

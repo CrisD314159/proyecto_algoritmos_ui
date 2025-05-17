@@ -15,7 +15,7 @@ interface Item{
 }
 
 export default function WordCountingPage() {
-  const { data, error, isLoading } = useSWR('abstracts', fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading } = useSWR('words', fetcher, { revalidateOnFocus: false })
 
   if (isLoading) {
     return (
@@ -40,7 +40,7 @@ export default function WordCountingPage() {
         <h1 className="text-3xl font-bold text-center">
           Gráficos de Co-word network y wordcloud
         </h1>
-    { data && data.response.length > 0 &&
+    { data ?
       data.response.map((item:Item)=>{
         return (
           <section className="shadow-md rounded-2xl p-6 space-y-4" key={item.name}>
@@ -57,6 +57,10 @@ export default function WordCountingPage() {
           </section>
         )
       })
+      :
+      <div className="flex justify-center items-center h-screen">
+        <p className=" text-lg">Cargando resultados...</p>
+      </div>
     }
 
       </div>

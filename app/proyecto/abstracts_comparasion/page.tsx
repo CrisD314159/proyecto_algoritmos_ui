@@ -10,7 +10,7 @@ const fetcher = async () => {
 }
 
 export default function AbstractsPage() {
-  const { data, error, isLoading } = useSWR('abstracts', fetcher, { revalidateOnFocus: false })
+  const { data, error, isLoading } = useSWR('abs', fetcher, { revalidateOnFocus: false })
 
   if (isLoading) {
     return (
@@ -28,13 +28,14 @@ export default function AbstractsPage() {
     )
   }
 
-  if(data){
     return (
       <main className="min-h-screenpy-10 px-4 md:px-10">
+        {data ? 
         <div className="max-w-5xl mx-auto space-y-10">
           <h1 className="text-3xl font-bold text-center">
             Comparación de Abstracts - Dendogramas
           </h1>
+
   
           <section className="shadow-md rounded-2xl p-6 space-y-4">
             <h2 className="text-xl font-semibold text-center">Ward</h2>
@@ -62,8 +63,12 @@ export default function AbstractsPage() {
             </div>
           </section>
         </div>
+        :
+      <div className="flex justify-center items-center h-screen">
+        <p className=" text-lg">Cargando resultados...</p>
+      </div>
+}
       </main>
     )
 
-  }
 }
